@@ -1,0 +1,23 @@
+# Pages to watch. Edit freely - no code changes needed.
+#   include_regex / exclude_regex : filter document links (matched on url + title + section heading)
+#   relevant_regex                : links matching this get a star and the PDF is attached in Telegram
+#   follow_pages_regex            : also open linked sub-pages matching this and collect their documents
+#   detect_replaced_files         : alert when a PDF is replaced under the same URL (default true)
+pages:
+  - name: "Exam Time Tables (Winter 2026)"
+    url: "https://dbatu.ac.in/winter-2026-examination-time-tables/"
+    # SBMPCE is an affiliated college, so the "Combined" timetable PDFs are the ones that apply.
+    # Change the semester digits to match yours (3 = Sem III, 4 = Sem IV ...).
+    relevant_regex: "(?i)DBATU_Time_Table_Sem_(3|4)_"
+
+  - name: "Academic Calendar"
+    url: "https://dbatu.ac.in/academic-calendar/"
+    exclude_regex: "(?i)pharm|architect"
+    relevant_regex: "(?i)engg|engineering"
+
+  - name: "Syllabus"
+    url: "https://dbatu.ac.in/syllabus-2/"
+    # Layout not verified yet - run `python watcher.py --dry-run` and check what it finds.
+    # If the page only links to per-branch sub-pages, uncomment:
+    # follow_pages_regex: "(?i)syllabus"
+    relevant_regex: "(?i)computer|comp[-_ ]?sci|cse"
